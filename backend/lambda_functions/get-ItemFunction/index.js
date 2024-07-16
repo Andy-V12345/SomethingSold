@@ -1,4 +1,4 @@
-import knex from 'knex';
+const knex = require('knex');
 
 const db = knex({
     client: 'mysql',
@@ -11,7 +11,7 @@ const db = knex({
     }
 });
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
     const response = {
         statusCode: 200,
         body: null,
