@@ -18,25 +18,32 @@ const db = Knex({
 export const handler = async (event) => {
 
     const response = {
-        statusCode: 200,
+        statusCode: '200',
         body: null,
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Methods': '*',
+            'Access-Control-Allow-Origin': '*'
+        }
     };
+
+    const postData = JSON.parse(event.body);
 
     try {
         await db('Users').insert({
-            email: event.email,
-            phone_number: event.phone_number,
-            location: event.location,
-            move_in_date: event.move_in_date,
-            move_out_date: event.move_out_date,
-            first_name: event.first_name,
-            last_name: event.last_name,
+            email: postData.email,
+            phone_number: postData.phone_number,
+            location: postData.location,
+            move_in_date: postData.move_in_date,
+            move_out_date: postData.move_out_date,
+            first_name: postData.first_name,
+            last_name: postData.last_name,
         })
 
         response.body = "USER_CREATED";
     }
     catch(error) {
-        response.statusCode = 409
+        response.statusCode = '409'
         response.body = "EMAIL_TAKEN";
     }
 
