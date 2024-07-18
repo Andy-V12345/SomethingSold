@@ -17,11 +17,13 @@ const db = knex({
 
 export const handler = async (event) => {
     let response = {
-        status: 200,
+        statusCode: '200',
         body: null,
     }
 
-    await db('Users').where('id', event.id).delete();
+    const user_id = event.pathParameters.id;
+
+    await db('Users').where('id', user_id).delete();
 
     response.body = "USER_DELETED"
 
