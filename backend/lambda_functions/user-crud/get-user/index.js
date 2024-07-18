@@ -17,18 +17,25 @@ const db = knex({
 
 export const handler = async (event) => {
     let response = {
-        status: 200,
+        statusCode: '200',
         body: null,
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Methods': '*',
+            'Access-Control-Allow-Origin': '*'
+        }
     }
 
-    const result = await db("Users").select("*").where('id', event.id)
+    const user_id = event.pathParameters.id;
+
+    const result = await db("Users").select("*").where('id', user_id)
 
     if (result.length == 0) {
-        response.status = 404
-        response.body = "USER_NOT_FOUND"
+        response.statusCode = '404'
+        response.body = JSON.stringify("USER_NOT_FOUND")
     }
     else {
-        response.body = result[0]
+        response.body = JSON.stringify(result[0])
     }
 
     return response;
