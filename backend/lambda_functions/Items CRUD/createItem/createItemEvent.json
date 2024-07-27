@@ -1,12 +1,9 @@
 {
-    "id": "item246",
-    "name": "Desk",
-    "price": 75.00,
-    "dimensions": "48x24x30",
-    "condition": 8,
-    "image_path": "path/to/image.jpg",
-    "seller_id": 0,
-    "buyer_id": null,
-    "availability_date": "2024-08-01"
-  }
-  
+  "name": "Desk",
+  "price": 75,
+  "dimensions": "48x24x30",
+  "condition": 8,
+  "seller_id": 5,
+  "buyer_id": null,
+  "availability_date": "2024-08-01"
+}

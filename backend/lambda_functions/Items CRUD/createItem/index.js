@@ -21,7 +21,15 @@ exports.handler = async (event) => {
         // Parse the event body
         const itemData = typeof event.body === 'string' ? JSON.parse(event.body) : event;
 
-        const { name, price, dimensions, condition, image_path, seller_id, buyer_id, availability_date } = itemData;
+        const { name, price, dimensions, condition, seller_id, buyer_id, availability_date } = itemData;
+
+        // Check if the seller_id exists in the Users table
+        if (seller_id) {
+            const sellerExists = await db('Users').where({ id: seller_id }).first();
+            if (!sellerExists) {
+                throw new Error(`Seller with id ${seller_id} does not exist.`);
+            }
+        }
 
         // Insert the item into the database without specifying the id
         const [insertedId] = await db('item').insert({
@@ -29,9 +37,8 @@ exports.handler = async (event) => {
             price,
             dimensions,
             condition,
-            image_path,
             seller_id: seller_id || null, // Handle null value
-            buyer_id: buyer_id || null,    // Handle null value,
+            buyer_id: buyer_id || null,    // Handle null value
             availability_date
         });
 
