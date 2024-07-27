@@ -21,22 +21,21 @@ exports.handler = async (event) => {
         // Parse the event body
         const itemData = typeof event.body === 'string' ? JSON.parse(event.body) : event;
 
-        const { id, name, price, dimensions, condition, image_path, seller_id, buyer_id, availability_date } = itemData;
+        const { name, price, dimensions, condition, image_path, seller_id, buyer_id, availability_date } = itemData;
 
-        // Insert the item into the database
-        await db('item').insert({
-            id,
+        // Insert the item into the database without specifying the id
+        const [insertedId] = await db('item').insert({
             name,
             price,
             dimensions,
             condition,
             image_path,
             seller_id: seller_id || null, // Handle null value
-            buyer_id: buyer_id || null,    // Handle null value
+            buyer_id: buyer_id || null,    // Handle null value,
             availability_date
         });
 
-        response.body = JSON.stringify({ message: 'Item created successfully' });
+        response.body = JSON.stringify({ message: 'Item created successfully', itemId: insertedId });
     } catch (error) {
         response.statusCode = 500;
         response.body = JSON.stringify({ error: error.message });
