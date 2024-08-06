@@ -1,12 +1,5 @@
 const AWS = require('aws-sdk');
-const multer = require('multer');
-const multerS3 = require('multer-s3');
-const express = require('express');
-const awsServerlessExpress = require('aws-serverless-express');
-const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware');
-const { configDotenv } = require('dotenv');
-
-configDotenv();
+const busboy = require('busboy');
 
 const s3 = new AWS.S3({
     region: 'us-east-1',
@@ -16,26 +9,50 @@ const s3 = new AWS.S3({
     }
 });
 
-const app = express();
-app.use(express.json());
-app.use(awsServerlessExpressMiddleware.eventContext());
+exports.handler = async (event) => {
+    const response = {
+        statusCode: 200,
+        body: null,
+    };
 
-const upload = multer({
-    storage: multerS3({
-        s3: s3,
-        bucket: 'somethingsold-uploads',
-        key: function (req, file, cb) {
-            cb(null, `images/${req.body.item_id}/${file.originalname}`);
-        }
-    })
-});
+    const bb = busboy({ headers: { 'content-type': 'multipart/form-data' } });
+    const result = {
+        fields: {},
+        files: []
+    };
 
-app.post('/upload', upload.single('file'), (req, res) => {
-    res.json({ message: 'File uploaded successfully', file: req.file });
-});
+    return new Promise((resolve, reject) => {
+        bb.on('file', (name, file, info) => {
+            const { filename, encoding, mimeType } = info;
+            const uploadParams = {
+                Bucket: 'somethingsold-uploads',
+                Key: `images/${filename}`,
+                Body: file,
+            };
+            s3.upload(uploadParams, (err, data) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    result.files.push(data);
+                }
+            });
+        });
 
-const server = awsServerlessExpress.createServer(app);
+        bb.on('field', (name, value) => {
+            result.fields[name] = value;
+        });
 
-exports.handler = (event, context) => {
-    awsServerlessExpress.proxy(server, event, context);
+        bb.on('finish', () => {
+            response.body = JSON.stringify({ message: 'File uploaded successfully', result });
+            resolve(response);
+        });
+
+        bb.on('error', (err) => {
+            response.statusCode = 500;
+            response.body = JSON.stringify({ error: err.message });
+            reject(response);
+        });
+
+        bb.end(Buffer.from(event.body, 'base64'));
+    });
 };
