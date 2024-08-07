@@ -30,7 +30,7 @@ export const handler = async (event) => {
     const postData = JSON.parse(event.body);
 
     try {
-        await db('Users').insert({
+        const ret = await db('Users').insert({
             email: postData.email,
             phone_number: postData.phone_number,
             location: postData.location,
@@ -38,10 +38,13 @@ export const handler = async (event) => {
             move_out_date: postData.move_out_date,
             first_name: postData.first_name,
             last_name: postData.last_name,
-        })
+        }, ['id'])
 
-        response.body = "USER_CREATED";
+        response.body = JSON.stringify({
+            user_id: ret[0]
+        });
     }
+
     catch(error) {
         response.statusCode = '409'
         response.body = "EMAIL_TAKEN";
