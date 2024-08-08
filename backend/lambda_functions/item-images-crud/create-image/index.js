@@ -15,8 +15,6 @@ const s3Client = new S3Client({
 export const handler = async (event) => {
 
     try {
-        console.log('Event:', JSON.stringify(event));
-
         const contentType = event.headers['content-type'] || event.headers['Content-Type'];
         
         if (!contentType.startsWith('multipart/form-data')) {
@@ -30,8 +28,6 @@ export const handler = async (event) => {
         let metadata = null;
         const uploads = []
 
-        console.log("bruh")
-
         bb.on('file', (fieldname, file, filename) => {
             const chunks = []
 
@@ -39,14 +35,9 @@ export const handler = async (event) => {
                 chunks.push(data)
             })
 
-            console.log("name:", filename.filename)
-            console.log("type:", filename.mimeType)
-
             file.on('end', async () => {
                 if (metadata !== null) {
                     const fileBuffer = Buffer.concat(chunks);
-
-                    console.log("metadata:", metadata)
 
                     const command = new PutObjectCommand({
                         Bucket: 'somethingsold-uploads',
@@ -100,7 +91,6 @@ export const handler = async (event) => {
         });
 
     } catch (err) {
-        console.log("hehe")
         return {
             statusCode: '500',
             body: JSON.stringify(`Error: ${err.message}`),
