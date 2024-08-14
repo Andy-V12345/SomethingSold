@@ -10,8 +10,6 @@ const s3Client = new S3Client({
 export const handler = async (event) => {
     try {
         const key = event.queryStringParameters.key
-        console.log("Deleting:", key)
-
         const command = new DeleteObjectCommand({
             Bucket: 'somethingsold-uploads',
             Key: key
