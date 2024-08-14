@@ -3,16 +3,8 @@ import {
     GetObjectCommand
 } from "@aws-sdk/client-s3"
 
-import { configDotenv } from "dotenv";
-
-configDotenv()
-
 const s3Client = new S3Client({
     region: 'us-east-1',
-    credentials: {
-        accessKeyId: process.env.ACCESS_KEY,
-        secretAccessKey: process.env.SECRET_ACCESS_KEY
-    }
 });
 
 export const handler = async (event) => {

@@ -1,5 +1,5 @@
 {
-  "name": "create-image",
+  "name": "delete-image",
   "type": "module",
   "version": "1.0.0",
   "description": "",
@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.614.0",
-    "busboy": "^1.6.0"
+    "@aws-sdk/client-s3": "^3.614.0"
   }
 }
