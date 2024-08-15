@@ -1,5 +1,5 @@
-import React from "react";
 import logoDark from "../assets/dark-logo-only.png"
+import GoogleSignInButton from "./GoogleSignInButton";
 
 const Landing = () => {
   return (
@@ -29,6 +29,8 @@ const Landing = () => {
                 Login
               </div>
             </div>
+
+            <GoogleSignInButton />
             
             <div className="flex items-start px-16 py-4 relative bg-[#d6c1ff] rounded-[32px] overflow-hidden">
               <div className="relative flex-1 [font-family:'Inter-Bold',Helvetica] font-bold text-[#545454] text-xl tracking-[-0.68px] leading-[normal]">
