@@ -364,6 +364,17 @@ export default function AuthPage() {
         }
     }, [location])
 
+    const resetFields = () => {
+        setState('DEFAULT')
+        setStatus('DEFAULT')
+        setEmail('')
+        setPassword('')
+        setFirstName('')
+        setLastName('')
+        setRetypePassword('')
+        setErrorMsg('')
+    }
+
     return (
         <div className="bg-[#D9D9D9] w-full h-full absolute flex justify-center">
             <div className={`relative my-auto h-5/6 ${mode == 'login' ? `max-h-[650px]` : `max-h-[900px]`} w-1/2 max-w-[500px]`}>
@@ -444,7 +455,7 @@ export default function AuthPage() {
 
                                     <div className="mx-auto">
                                         <p className="inline text-sm text-[#545454]">{mode === 'login' ? `Don't have an account? ` : `Already have an account? `}</p>
-                                        <Link to={mode === 'login' ? `/auth/signup` : `/auth/login`} className="text-sm text-[#D6C1FF] font-semibold">
+                                        <Link onClick={() => resetFields()} to={mode === 'login' ? `/auth/signup` : `/auth/login`} className="text-sm text-[#D6C1FF] font-semibold">
                                             {mode === 'login' ? `Sign up` : `Log in`}
                                         </Link>
                                     </div>
