@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
 import logoDark from "../assets/dark-logo-only.png"
-import GoogleSignInButton from "./GoogleSignInButton";
 
 const Landing = () => {
+
   return (
       <div className="bg-[#545454] w-full h-screen overflow-y-auto overflow-x-hidden">
         <div className="flex flex-col items-center gap-20 pb-24 pt-44">
@@ -24,21 +25,20 @@ const Landing = () => {
 
           <div className="m-auto flex items-center justify-between flex-wrap gap-32">
 
-            <div className="flex items-start px-16 py-4 relative bg-[#d9d9d9] rounded-[32px] overflow-hidden">
+            <Link to="/auth/login" className="flex items-start px-16 py-4 relative bg-[#d9d9d9] rounded-[32px] overflow-hidden">
               <div className="flex-1 [font-family:'Inter-Bold',Helvetica] font-bold text-[#545454] text-xl tracking-[-0.68px] leading-[normal]">
                 Login
               </div>
-            </div>
-
-            <GoogleSignInButton />
+            </Link>
             
-            <div className="flex items-start px-16 py-4 relative bg-[#d6c1ff] rounded-[32px] overflow-hidden">
+            <Link to="/auth/signup" className="flex items-start px-16 py-4 relative bg-[#d6c1ff] rounded-[32px] overflow-hidden">
               <div className="relative flex-1 [font-family:'Inter-Bold',Helvetica] font-bold text-[#545454] text-xl tracking-[-0.68px] leading-[normal]">
                 Sign Up
               </div>
-            </div>
+            </Link>
           </div>
         </div>
+
       </div>
   );
 };

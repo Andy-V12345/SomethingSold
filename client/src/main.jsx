@@ -1,4 +1,3 @@
-import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
@@ -7,6 +6,9 @@ import {
 import App from "./App";
 import Landing from "./components/Landing";
 import "./index.css";
+import AuthPage from "./components/AuthPage";
+import Home from "./components/Home";
+import GoogleCallback from "./components/GoogleCallback";
 
 const router = createBrowserRouter([
   {
@@ -14,12 +16,13 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: "/", element: <Landing /> },
+      { path: "/auth/:mode", element: <AuthPage /> },
+      { path: "/home", element: <Home /> },
+      { path: "/google/callback/:code", element: <GoogleCallback />}
     ],
   }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
 );

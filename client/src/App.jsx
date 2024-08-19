@@ -1,10 +1,14 @@
 import { Outlet } from "react-router-dom";
+import { Account } from "./components/Account";
+import SessionManager from "./components/SessionManager";
 
 const App = () => {
   return (
-    <div className="w-full p-0 h-full">
-      <Outlet />
-    </div>
+    <Account>
+      <SessionManager>
+        <Outlet />
+      </SessionManager>
+    </Account>
   );
 };
 export default App
