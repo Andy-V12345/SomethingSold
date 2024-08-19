@@ -27,10 +27,13 @@ export const handler = async (event) => {
         }
     };
 
+    console.log("Body: ", event.body)
+
     const postData = JSON.parse(event.body);
 
     try {
         const ret = await db('Users').insert({
+            id: postData.id,
             email: postData.email,
             phone_number: postData.phone_number,
             location: postData.location,
@@ -44,10 +47,11 @@ export const handler = async (event) => {
             user_id: ret[0]
         });
     }
-
     catch(error) {
         response.statusCode = '409'
-        response.body = "EMAIL_TAKEN";
+        response.body = JSON.stringify({
+            msg: `${error.sqlMessage.endsWith("'Users.email'") ? "EMAIL_TAKEN" : "DUP_ID"}`
+        });
     }
 
     return response;
