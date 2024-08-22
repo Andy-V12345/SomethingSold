@@ -1,0 +1,19 @@
+{
+  "name": "deleteitem",
+  "version": "1.0.0",
+  "description": "AWS Lambda function to delete an item from the SomethingSold database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["aws", "lambda", "knex", "mysql", "delete"],
+  "author": "Your Name",
+  "license": "ISC",
+  "dependencies": {
+    "knex": "^3.1.0",
+    "mysql": "^2.18.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

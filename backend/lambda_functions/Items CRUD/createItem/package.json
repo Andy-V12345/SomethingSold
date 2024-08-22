@@ -1,0 +1,16 @@
+{
+  "name": "createitem",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "knex": "^0.95.14",
+    "mysql": "^2.18.1"
+  }
+}
