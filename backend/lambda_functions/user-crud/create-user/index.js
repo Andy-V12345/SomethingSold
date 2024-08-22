@@ -32,16 +32,7 @@ export const handler = async (event) => {
     const postData = JSON.parse(event.body);
 
     try {
-        const ret = await db('Users').insert({
-            id: postData.id,
-            email: postData.email,
-            phone_number: postData.phone_number,
-            location: postData.location,
-            move_in_date: postData.move_in_date,
-            move_out_date: postData.move_out_date,
-            first_name: postData.first_name,
-            last_name: postData.last_name,
-        }, ['id'])
+        const ret = await db('Users').insert(postData, ['id'])
 
         response.body = JSON.stringify({
             user_id: ret[0]

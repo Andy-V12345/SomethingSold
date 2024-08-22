@@ -7,16 +7,39 @@ export const AccountContext = createContext()
 export function Account(props) {
 
     const [authState, setAuthState] = useState('PROCESSING')
+    
+    const getUser = () => {
+        const user = UserPool.getCurrentUser()
+
+        if (user) {
+            return user
+        }
+        
+        return null;
+    }
+
+    const getIdToken = async () => {
+        return await new Promise((resolve, reject) => {
+            getSession()
+                .then((session) => {
+                    resolve(session.getIdToken())
+                })
+                .catch((err) => {
+                    reject(err)
+                })
+        })
+    }
 
     const getSession = async () => {
         return await new Promise((resolve, reject) => {
-            const user = UserPool.getCurrentUser()
+            const user = getUser()
             if (user) {
                 user.getSession((err, session) => {
                     if (err) {
-                        reject()
+                        reject(err)
                     }
                     else {
+
                         resolve(session)
                     }
                 })
@@ -40,8 +63,8 @@ export function Account(props) {
 
         return await new Promise((resolve, reject) => {
             user.authenticateUser(authDetails, {
-                onSuccess: (data) => {
-                    resolve(data)
+                onSuccess: (session) => {
+                    resolve(session)
                 },
                 onFailure: (err) => {
                     reject(err)
@@ -51,7 +74,7 @@ export function Account(props) {
     }
 
     const logout = () => {
-        const user = UserPool.getCurrentUser()
+        const user = getUser()
         if (user) {
             user.signOut()
             setAuthState('UNAUTHORIZED')
@@ -59,7 +82,7 @@ export function Account(props) {
     }
 
     return (
-        <AccountContext.Provider value={{authenticate, getSession, logout, setAuthState, authState}}>
+        <AccountContext.Provider value={{authenticate, getSession, logout, setAuthState, authState, getIdToken}}>
             {props.children}
         </AccountContext.Provider>
     )

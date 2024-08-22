@@ -65,6 +65,7 @@ export const handler = async (event) => {
                         }),
                     });
                 } catch (err) {
+                    console.error(err)
                     reject({
                         statusCode: '500',
                         body: JSON.stringify({
@@ -75,6 +76,7 @@ export const handler = async (event) => {
             });
 
             bb.on('error', (err) => {
+                console.error(err)
                 reject({
                     statusCode: '500',
                     body: JSON.stringify({
@@ -88,6 +90,7 @@ export const handler = async (event) => {
         });
 
     } catch (err) {
+        console.error(err)
         return {
             statusCode: '500',
             body: JSON.stringify({

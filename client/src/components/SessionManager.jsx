@@ -18,7 +18,7 @@ function SessionManager(props) {
 
         if (!(code)) {
             getSession()
-                .then(() => {
+                .then((session) => {
                     setAuthState('AUTHORIZED')
                 })
                 .catch(() => {

@@ -30,20 +30,17 @@ export const handler = async (event) => {
     const user_id = event.pathParameters.id;
 
     try {
-        await db('Users').where({id : user_id}).update({
-            email: postData.email,
-            phone_number: postData.phone_number,
-            location: postData.location,
-            move_in_date: postData.move_in_date,
-            move_out_date: postData.move_out_date,
-            first_name: postData.first_name,
-            last_name: postData.last_name,
+        await db('Users').where({id : user_id}).update(postData)
+        response.body = JSON.stringify({
+            msg: "USER_UPDATED"
         })
-        response.body = "USER_UPDATED"
+
     }
     catch(err) {
         response.statusCode = '409'
-        response.body = "EMAIL_TAKEN"
+        response.body = JSON.stringify({
+            msg: "EMAIL_TAKEN"
+        })
     }
 
     return response

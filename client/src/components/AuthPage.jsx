@@ -28,7 +28,7 @@ export default function AuthPage() {
     const [startCooldown, setStartCooldown] = useState(false)
     const [resendCooldown, setResendCooldown] = useState(0)
 
-    useEffect(() =>{
+    useEffect(() => {
         if (startCooldown) {
             const timerInterval = setInterval(() => {
                 setResendCooldown((prevTime) => {
@@ -197,6 +197,10 @@ export default function AuthPage() {
                     new CognitoUserAttribute({
                         Name: "custom:last_name",
                         Value: lastName
+                    }),
+                    new CognitoUserAttribute({
+                        Name: "custom:is_onboarded",
+                        Value: "false"
                     })
                 ]
 
@@ -216,6 +220,7 @@ export default function AuthPage() {
                                 email: email,
                                 first_name: firstName,
                                 last_name: lastName,
+                                isOnboarded: 0
                             })
                         };
 
@@ -325,6 +330,7 @@ export default function AuthPage() {
                                     email: id_token_info.email,
                                     first_name: firstName,
                                     last_name: lastName,
+                                    isOnboarded: 0
                                 })
                             };
     
@@ -332,6 +338,7 @@ export default function AuthPage() {
                                 .then(response => response.json())
                                 .then((data) => {
                                     if (data.msg && data.msg === 'EMAIL_TAKEN') {
+                                        console.log("dup email")
                                         setStatus("ERROR")
                                         setErrorMsg("This email is already linked to an account. Try logging in.")
                                     }
@@ -348,9 +355,28 @@ export default function AuthPage() {
                                         })
             
                                         new_user.setSignInUserSession(new_session)
-            
-                                        setStatus('DEFAULT')
-                                        setAuthState('AUTHORIZED')
+
+                                        if (id_token_info["custom:is_onboarded"]) {
+                                            setStatus('DEFAULT')
+                                            setAuthState('AUTHORIZED')
+                                        }
+                                        else {
+                                            new_user.updateAttributes([
+                                                new CognitoUserAttribute({
+                                                    Name: "custom:is_onboarded",
+                                                    Value: "false"
+                                                })
+                                            ], (err) => {
+                                                if (err) {
+                                                    console.error(err)
+                                                }
+                                                else {
+                                                    setStatus('DEFAULT')
+                                                setAuthState('AUTHORIZED')
+                                                }
+                                            })
+
+                                        }
                                     }
                                 })
                         }
