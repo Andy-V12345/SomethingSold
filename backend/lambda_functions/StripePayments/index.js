@@ -1,7 +1,6 @@
 const Stripe = require('stripe');
 
-// Replace with your Stripe secret key
-const stripe = Stripe('your-secret-key');
+const stripe = Stripe('sk_test_51PqOjyP7K7BPZJ34Krq0nMHED1X4WUjcSAH8q3ZXoqVBI0cOhSYJDMZzL9CPbSf8lw9rRuYKpIPknaR7YAw4ASwr00fd0qtYVi');
 
 exports.handler = async (event) => {
     try {
