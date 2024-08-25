@@ -19,16 +19,26 @@ exports.handler = async (event) => {
 
     let itemData;
     try {
-        itemData = JSON.parse(event.body);
+        itemData = typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
     } catch (error) {
         response.statusCode = 400;
         response.body = JSON.stringify({ error: 'Invalid JSON format in request body' });
         return response;
     }
 
-    const { id, name, price, dimensions, condition, image_path, seller_id, buyer_id, availability_date } = itemData;
+    const { id, name, price, dimensions, condition, seller_id, buyer_id, availability_date } = itemData;
 
     try {
+        // Check if the seller_id exists in the Users table
+        if (seller_id) {
+            const sellerExists = await db('Users').where({ id: seller_id }).first();
+            if (!sellerExists) {
+                response.statusCode = 400;
+                response.body = JSON.stringify({ error: 'Invalid seller_id: The specified seller does not exist.' });
+                return response;
+            }
+        }
+
         await db('item')
             .where({ id })
             .update({
@@ -36,7 +46,6 @@ exports.handler = async (event) => {
                 price,
                 dimensions,
                 condition,
-                image_path,
                 seller_id,
                 buyer_id,
                 availability_date
