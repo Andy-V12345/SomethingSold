@@ -1,9 +1,9 @@
-import Knex from 'knex';
-import {configDotenv} from 'dotenv'
+import knex from "knex";
+import { configDotenv } from "dotenv";
 
 configDotenv()
 
-const db = Knex({
+const db = knex({
     client: 'mysql',
     connection: {
         host: process.env.SERVER_HOST,
@@ -16,8 +16,7 @@ const db = Knex({
 })
 
 export const handler = async (event) => {
-
-    const response = {
+    let response = {
         statusCode: '200',
         body: null,
         headers: {
@@ -25,26 +24,20 @@ export const handler = async (event) => {
             'Access-Control-Allow-Methods': '*',
             'Access-Control-Allow-Origin': '*'
         }
-    };
-
-    console.log("Body: ", event.body)
-
-    const postData = JSON.parse(event.body);
-
-    try {
-        const ret = await db('Users').insert(postData, ['id'])
-
-        response.body = JSON.stringify({
-            user_id: ret[0]
-        });
     }
-    catch(error) {
-        response.statusCode = '409'
-        response.body = JSON.stringify({
-            msg: `${error.sqlMessage.endsWith("'Users.email'") ? "EMAIL_TAKEN" : "DUP_ID"}`
-        });
+
+    const user_id = event.pathParameters.id;
+
+    const result = await db("Users").select("*").where('id', user_id)
+
+    if (result.length == 0) {
+        response.statusCode = '404'
+        response.body = JSON.stringify("USER_NOT_FOUND")
+    }
+    else {
+        response.body = JSON.stringify(result[0])
     }
 
     return response;
-
+    
 }
