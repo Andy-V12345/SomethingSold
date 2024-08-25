@@ -88,7 +88,7 @@ function Onboarding({setIsOnboarded, firstName}) {
                                 headers: { 
                                     'Content-Type': 'application/json',
                                     'Authorization': idToken.getJwtToken()
-                                 },
+                                },
                                 body: JSON.stringify(body)
                             };
 
@@ -150,7 +150,10 @@ function Onboarding({setIsOnboarded, firstName}) {
         const enteredDate = new Date(date)
         const today = new Date();
 
-        if (enteredDate === 'Invalid Date' || enteredDate.getDate() < today.getDate()) {
+        today.setHours(0, 0, 0)
+        enteredDate.setHours(0, 0, 0)
+
+        if (enteredDate === 'Invalid Date' || enteredDate < today) {
             setDateErrorMsg("Please enter a valid date.")
             isDateValid = false
         }
@@ -173,21 +176,21 @@ function Onboarding({setIsOnboarded, firstName}) {
 
     return (
         <div className="bg-white h-screen w-full flex justify-center">
-            <div className="text-[#545454] text-[46px] font-extrabold leading-none w-full max-w-[550px] my-auto flex flex-col justify-center">
+            <div className="text-primary-gray text-[46px] font-extrabold leading-none w-full max-w-[550px] my-auto flex flex-col justify-center">
                 <h1>Welcome,</h1>
                 <h1>{`${firstName}!`}</h1>
 
                 {stage == 0 ?
                     <>
-                        <p className="text-sm mt-10 text-[#545454] font-medium">First, we have some questions for you.</p>
-                        <p className="text-lg mb-10 font-semibold">Are you planning on <strong className="text-[#D6C1FF]">buying</strong> or <strong className="text-[#D6C1FF]">selling</strong> furniture?</p>
+                        <p className="text-sm mt-10 text-primary-gray font-medium">First, we have some questions for you.</p>
+                        <p className="text-lg mb-10 font-semibold">Are you planning on <strong className="text-brand-purple">buying</strong> or <strong className="text-brand-purple">selling</strong> furniture?</p>
 
                         <div className="flex text-base justify-between">
                             <button onClick={() => clickBuy()} className="px-8 py-3 relative bg-[#D9D9D9] rounded-[20px] overflow-hidden">
                                 {`I'm buying`}
                             </button>
         
-                            <button onClick={() => clickSell()} className="px-8 py-3 relative bg-[#D6C1FF] rounded-[20px] overflow-hidden">
+                            <button onClick={() => clickSell()} className="px-8 py-3 relative bg-brand-purple rounded-[20px] overflow-hidden">
                                 {`I'm selling`}
                             </button>
                         </div>
@@ -195,11 +198,11 @@ function Onboarding({setIsOnboarded, firstName}) {
                 :
                     <>
                         <OnboardingInputField errorMsg={addressErrorMsg} label={`Where are you living off-campus? (If you're a sophomore, where will you be next year?)`}>
-                            <textarea value={address} onChange={handleAddressChange} className="text-base p-2 font-medium text-[#545454] w-full rounded-md border-2 border-[#D6C1FF]" placeholder="123 Main St Apt 4B, Evanston, IL 60208" />
+                            <textarea value={address} onChange={handleAddressChange} className="text-base p-2 font-medium text-primary-gray w-full rounded-md border-2 border-brand-purple" placeholder="123 Main St Apt 4B, Evanston, IL 60208" />
                         </OnboardingInputField>
 
                         <OnboardingInputField errorMsg={dateErrorMsg} label={mode === 'BUYING' ? `When will you move your furniture in?` : `When will you move your furniture out?`}>
-                            <input type="date" value={date} onChange={handleDateChange} className="text-base p-2 font-medium text-[#545454] w-full rounded-md border-2 border-[#D6C1FF]" />
+                            <input type="date" value={date} onChange={handleDateChange} className="text-base p-2 font-medium text-primary-gray w-full rounded-md border-2 border-brand-purple" />
                         </OnboardingInputField>
 
                         {state === 'ERROR' ? 
@@ -211,11 +214,11 @@ function Onboarding({setIsOnboarded, firstName}) {
                         }
 
                         <div className="flex justify-end gap-8 mt-10">
-                            <button onClick={() => setStage(0)} className="text-base font-medium text-[#D6C1FF]">
+                            <button onClick={() => setStage(0)} className="text-base font-medium text-brand-purple">
                                 Back
                             </button>
 
-                            <button disabled={state === 'DEFAULT'} onClick={() => handleFinish()} className={`px-8 py-2 text-base bg-[#D6C1FF] rounded-[20px] overflow-hidden w-fit ${state === 'DEFAULT' ? `opacity-50` : `opacity-100`}`}>
+                            <button disabled={state === 'DEFAULT'} onClick={() => handleFinish()} className={`px-8 py-2 text-base bg-brand-purple rounded-[20px] overflow-hidden w-fit ${state === 'DEFAULT' ? `opacity-50` : `opacity-100`}`}>
                                 {`Finish`}
                             </button>
                         </div>
@@ -226,7 +229,7 @@ function Onboarding({setIsOnboarded, firstName}) {
             </div>
             {state === 'LOADING' ?
                 <div className="absolute top-0 left-0 w-full h-full bg-white opacity-85 flex justify-center">
-                    <div className="border-gray-300 h-[25px] w-[25px] animate-spin rounded-full border-[4px] border-t-[#D6C1FF] my-auto" />
+                    <div className="border-gray-300 h-[25px] w-[25px] animate-spin rounded-full border-[4px] border-t-brand-purple my-auto" />
                 </div>
             :
                 null

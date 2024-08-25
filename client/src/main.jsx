@@ -8,6 +8,7 @@ import Landing from "./components/Landing";
 import "./index.css";
 import AuthPage from "./components/AuthPage";
 import Home from "./components/Home";
+import ListItem from "./components/ListItem";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Landing /> },
       { path: "/auth/:mode", element: <AuthPage /> },
       { path: "/home", element: <Home /> },
+      { path: "/sell", element: <ListItem /> }
     ],
   }
 ]);

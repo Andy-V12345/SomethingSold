@@ -21,7 +21,12 @@ export const handler = async (event) => {
             statusCode: '200',
             body: JSON.stringify({
                 message: `Deleted image at path: ${key}`
-            })
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Methods': '*',
+                'Access-Control-Allow-Origin': '*'
+            }
         }
     }
     catch (error) {
@@ -30,7 +35,12 @@ export const handler = async (event) => {
             statusCode: '500',
             body: JSON.stringify({
                 error: error.message
-            })
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Methods': '*',
+                'Access-Control-Allow-Origin': '*'
+            }
         }
     }
 }

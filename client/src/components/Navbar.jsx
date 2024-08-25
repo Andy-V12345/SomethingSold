@@ -3,6 +3,7 @@ import { FaRegEnvelope, FaRegHeart, FaChevronDown } from 'react-icons/fa'
 import { MdOutlineShoppingCart } from 'react-icons/md'
 import LetteredAvatar from 'react-lettered-avatar'
 import Searchbar from "./Searchbar"
+import { Link } from "react-router-dom"
 
 function Navbar({ firstName, lastName }) {
     return (
@@ -12,27 +13,27 @@ function Navbar({ firstName, lastName }) {
 
                 <Searchbar />
 
-                <div className="my-auto flex items-center gap-6 justify-center text-[#545454]">
-                    <button className="bg-[#D6C1FF] rounded-[10px] font-semibold text-white px-12 py-1">
+                <div className="my-auto flex items-center gap-6 justify-center text-primary-gray">
+                    <Link to={"/sell"} className="bg-brand-purple rounded-[10px] font-semibold text-white px-12 py-1 hover:opacity-70">
                         Sell
+                    </Link>
+
+                    <button>
+                        <FaRegEnvelope className="text-[23px] hover:opacity-70" />
                     </button>
 
                     <button>
-                        <FaRegEnvelope className="text-[23px]" />
+                        <FaRegHeart className="text-[23px] hover:opacity-70" />
                     </button>
 
                     <button>
-                        <FaRegHeart className="text-[23px]" />
-                    </button>
-
-                    <button>
-                        <MdOutlineShoppingCart className="text-[23px]" />
+                        <MdOutlineShoppingCart className="text-[23px] hover:opacity-70" />
                     </button>
 
                     <LetteredAvatar size={50} name={`${firstName} ${lastName}`} />
 
                     <button>
-                        <FaChevronDown className="text-[10px]" />
+                        <FaChevronDown className="text-[10px] hover:opacity-70" />
                     </button>
                 </div>
             </div>

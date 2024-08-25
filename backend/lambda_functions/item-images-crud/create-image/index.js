@@ -6,7 +6,6 @@ const s3Client = new S3Client({
 })
 
 export const handler = async (event) => {
-
     try {
         const contentType = event.headers['content-type'] || event.headers['Content-Type'];
         
@@ -14,6 +13,11 @@ export const handler = async (event) => {
             return {
                 statusCode: '400',
                 body: JSON.stringify('Invalid content type'),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Methods': '*',
+                    'Access-Control-Allow-Origin': '*'
+                }
             };
         }
 
@@ -63,6 +67,11 @@ export const handler = async (event) => {
                         body: JSON.stringify({
                             message: 'File uploaded successfully',
                         }),
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Access-Control-Allow-Methods': '*',
+                            'Access-Control-Allow-Origin': '*'
+                        }
                     });
                 } catch (err) {
                     console.error(err)
@@ -71,6 +80,11 @@ export const handler = async (event) => {
                         body: JSON.stringify({
                             error: err.message
                         }),
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Access-Control-Allow-Methods': '*',
+                            'Access-Control-Allow-Origin': '*'
+                        }
                     });
                 }
             });
@@ -82,6 +96,11 @@ export const handler = async (event) => {
                     body: JSON.stringify({
                         error: err.message
                     }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Methods': '*',
+                        'Access-Control-Allow-Origin': '*'
+                    }
                 });
             });
 
@@ -96,6 +115,11 @@ export const handler = async (event) => {
             body: JSON.stringify({
                 error: err.message
             }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Methods': '*',
+                'Access-Control-Allow-Origin': '*'
+            }
         }
     }
 

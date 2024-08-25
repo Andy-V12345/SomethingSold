@@ -25,6 +25,8 @@ export const handler = async (event) => {
             statusCode: '200',
             headers: {
                 'Content-Type': response.ContentType,
+                'Access-Control-Allow-Methods': '*',
+                'Access-Control-Allow-Origin': '*'
             },
             body: base64Body,
             isBase64Encoded: true
@@ -36,7 +38,12 @@ export const handler = async (event) => {
             statusCode: '500',
             body: JSON.stringify({
                 error: error.message
-            })
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Methods': '*',
+                'Access-Control-Allow-Origin': '*'
+            }
         }
     }
     

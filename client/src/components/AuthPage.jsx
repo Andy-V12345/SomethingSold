@@ -402,13 +402,13 @@ export default function AuthPage() {
     }
 
     return (
-        <div className="bg-[#D9D9D9] w-full h-full absolute flex justify-center">
+        <div className="bg-secondary-gray w-full h-full absolute flex justify-center">
             <div className={`relative my-auto h-5/6 ${mode == 'login' ? `max-h-[650px]` : `max-h-[900px]`} w-1/2 max-w-[500px]`}>
                 <div className="bg-white rounded-[40px] my-auto h-full w-full p-[45px] flex flex-col justify-between overflow-scroll gap-6">
                     {state == "VERIFYING" ? 
                         <>
                             <div className="flex flex-col gap-6">
-                                <p className="font-bold text-[45px] text-[#545454]">Verify Email</p>
+                                <p className="font-bold text-[45px] text-primary-gray">Verify Email</p>
 
                                 <AuthInputField label="Verification code" value={verificationCode} setValue={setVerificationCode} placeholder="Enter the 6 digit code we sent to your email" isSecure={false} />
 
@@ -421,13 +421,13 @@ export default function AuthPage() {
                                 }
 
                                 <div className="flex flex-col gap-3">
-                                    <button disabled={status != 'READY' && status != 'ERROR'} onClick={() => verifyCode()} className={`flex items-start px-16 h-[50px] mt-10 relative bg-[#D6C1FF] rounded-[14px] overflow-hidden ${status != 'READY' && status != 'ERROR' ? `opacity-50` : `opacity-100`}`}>
-                                        <div className="flex-1 my-auto font-bold text-[#545454] text-md tracking-[-0.68px] leading-[normal]">
+                                    <button disabled={status != 'READY' && status != 'ERROR'} onClick={() => verifyCode()} className={`flex items-start px-16 h-[50px] mt-10 relative bg-brand-purple rounded-[14px] overflow-hidden ${status != 'READY' && status != 'ERROR' ? `opacity-50` : `opacity-100`}`}>
+                                        <div className="flex-1 my-auto font-bold text-primary-gray text-md tracking-[-0.68px] leading-[normal]">
                                             Verify
                                         </div>
                                     </button>
 
-                                    <button disabled={startCooldown} onClick={() => resendCode()} className="text-left text-[#545454] text-sm">
+                                    <button disabled={startCooldown} onClick={() => resendCode()} className="text-left text-primary-gray text-sm">
                                         {startCooldown ? `Next resend in ${resendCooldown}` : `Resend code`}
                                     </button>
                                 </div>
@@ -440,14 +440,14 @@ export default function AuthPage() {
                         :
                             <>
                                 <div className="flex flex-col gap-6">
-                                    <p className="font-bold text-[45px] text-[#545454]">{mode === 'login' ? `Log In` : `Sign Up`}</p>
+                                    <p className="font-bold text-[45px] text-primary-gray">{mode === 'login' ? `Log In` : `Sign Up`}</p>
 
                                     {mode === 'login' ?
                                         <>
                                             <AuthInputField label="Email" value={email} setValue={setEmail} placeholder="johndoe@u.northwestern.edu" isSecure={false} errorMsg={emailErrorMsg} isError={emailError} />
                                             <div className="flex flex-col gap-3">
                                                 <AuthInputField label="Password" value={password} setValue={setPassword} placeholder="Enter your password" isSecure={true} errorMsg={passwordErrorMsg} isError={passwordError} />
-                                                <button onClick={() => setState("RESETTING")} className="text-left text-sm text-[#D6C1FF] font-semibold">
+                                                <button onClick={() => setState("RESETTING")} className="text-left text-sm text-brand-purple font-semibold">
                                                     Forgot password
                                                 </button>   
                                             </div>
@@ -473,20 +473,20 @@ export default function AuthPage() {
                                 </div>
 
                                 <div className="flex flex-col gap-1">
-                                    <button disabled={status != 'READY' && status != 'ERROR'} onClick={() => handleSubmission()} className={`flex items-start px-16 h-[50px] mt-10 relative bg-[#D6C1FF] rounded-[14px] overflow-hidden ${status != 'READY' && status != 'ERROR' ? `opacity-50` : `opacity-100`}`}>
-                                        <div className="flex-1 my-auto font-bold text-[#545454] text-md tracking-[-0.68px] leading-[normal]">
+                                    <button disabled={status != 'READY' && status != 'ERROR'} onClick={() => handleSubmission()} className={`flex items-start px-16 h-[50px] mt-10 relative bg-brand-purple rounded-[14px] overflow-hidden ${status != 'READY' && status != 'ERROR' ? `opacity-50` : `opacity-100`}`}>
+                                        <div className="flex-1 my-auto font-bold text-primary-gray text-md tracking-[-0.68px] leading-[normal]">
                                             {mode === 'login' ? `Log In` : `Sign Up`}
                                         </div>
                                     </button>
 
                                     <div className="mx-auto">
-                                        <p className="inline text-sm text-[#545454]">{mode === 'login' ? `Don't have an account? ` : `Already have an account? `}</p>
-                                        <Link onClick={() => resetFields()} to={mode === 'login' ? `/auth/signup` : `/auth/login`} className="text-sm text-[#D6C1FF] font-semibold">
+                                        <p className="inline text-sm text-primary-gray">{mode === 'login' ? `Don't have an account? ` : `Already have an account? `}</p>
+                                        <Link onClick={() => resetFields()} to={mode === 'login' ? `/auth/signup` : `/auth/login`} className="text-sm text-brand-purple font-semibold">
                                             {mode === 'login' ? `Sign up` : `Log in`}
                                         </Link>
                                     </div>
 
-                                    <p className="mx-auto my-3 text-[#545454]">or</p>
+                                    <p className="mx-auto my-3 text-primary-gray">or</p>
 
                                     <GoogleSignInButton handleClick={signInWithGoogle} text={mode === 'login' ? `Log in with Google` : `Sign up with Google`} />
                                 </div>
@@ -498,7 +498,7 @@ export default function AuthPage() {
                 </div>
                 {status == 'LOADING' ? 
                     <div className="absolute rounded-[40px] top-0 left-0 w-full h-full bg-white opacity-85 flex justify-center">
-                        <div className="border-gray-300 h-[25px] w-[25px] animate-spin rounded-full border-[4px] border-t-[#D6C1FF] my-auto" />
+                        <div className="border-gray-300 h-[25px] w-[25px] animate-spin rounded-full border-[4px] border-t-brand-purple my-auto" />
                     </div>
                 :
                     null

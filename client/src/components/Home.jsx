@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react"
 import { AccountContext } from "./Account"
 import Onboarding from "./Onboarding"
@@ -5,7 +6,7 @@ import Navbar from "./Navbar"
 
 function Home() {
 
-    const {getIdToken, authState, logout} = useContext(AccountContext)
+    const {getIdToken, authState} = useContext(AccountContext)
     const [isOnboarded, setIsOnboarded] = useState(true)
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")

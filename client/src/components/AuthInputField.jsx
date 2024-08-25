@@ -12,9 +12,9 @@ export default function AuthInputField({label, value, setValue, placeholder, isS
 
     return(
         <div className="flex flex-col">
-            <p className="text-[#545454] text-md">{label}</p>
+            <p className="text-primary-gray text-md">{label}</p>
 
-            <div className="flex border-b-[3px] border-[#D6C1FF]">
+            <div className="flex border-b-[3px] border-brand-purple">
                 <input
                     className={`outline-none appearance-none w-full rounded-none py-2`} 
                     onChange={handleTextChange} 

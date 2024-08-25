@@ -88,7 +88,7 @@ function ResetPassword({status, setStatus, setState}) {
     return (
         <>
             <div className="flex flex-col gap-6">
-                <p className="font-bold text-[45px] text-[#545454]">Reset Password</p>
+                <p className="font-bold text-[45px] text-primary-gray">Reset Password</p>
 
                 {resetStage === 'EMAIL' ?
                     <AuthInputField label="Email" value={resetEmail} setValue={setResetEmail} placeholder="Enter the email associated with your account" isSecure={false} />
@@ -116,8 +116,8 @@ function ResetPassword({status, setStatus, setState}) {
                 }
 
                 <div className="flex flex-col gap-3">
-                    <button disabled={status != 'READY' && status != 'ERROR'} onClick={() => handleClick()} className={`flex items-start px-16 h-[50px] mt-10 relative bg-[#D6C1FF] rounded-[14px] overflow-hidden ${status != 'READY' && status != 'ERROR' ? `opacity-50` : `opacity-100`}`}>
-                        <div className="flex-1 my-auto font-bold text-[#545454] text-md tracking-[-0.68px] leading-[normal]">
+                    <button disabled={status != 'READY' && status != 'ERROR'} onClick={() => handleClick()} className={`flex items-start px-16 h-[50px] mt-10 relative bg-brand-purple rounded-[14px] overflow-hidden ${status != 'READY' && status != 'ERROR' ? `opacity-50` : `opacity-100`}`}>
+                        <div className="flex-1 my-auto font-bold text-primary-gray text-md tracking-[-0.68px] leading-[normal]">
                             {resetStage === 'RESET' ? 'Reset Password' : resetStage === 'SUCCESS' ? 'Back to Log In' : 'Next'}
                         </div>
                     </button>
