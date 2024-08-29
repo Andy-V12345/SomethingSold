@@ -15,6 +15,11 @@ exports.handler = async (event) => {
     const response = {
         statusCode: 200,
         body: null,
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Methods': '*',
+            'Access-Control-Allow-Origin': '*'
+        }
     };
 
     let itemId;

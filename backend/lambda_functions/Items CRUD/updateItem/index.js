@@ -15,6 +15,11 @@ exports.handler = async (event) => {
     const response = {
         statusCode: 200,
         body: null,
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Methods': '*',
+            'Access-Control-Allow-Origin': '*'
+        }
     };
 
     let itemData;
@@ -26,7 +31,7 @@ exports.handler = async (event) => {
         return response;
     }
 
-    const { id, name, price, dimensions, condition, seller_id, buyer_id, availability_date } = itemData;
+    const { id, name, price, dimensions, condition, seller_id, buyer_id, availability_date, address } = itemData;
 
     try {
         // Check if the seller_id exists in the Users table
@@ -48,7 +53,8 @@ exports.handler = async (event) => {
                 condition,
                 seller_id,
                 buyer_id,
-                availability_date
+                availability_date,
+                address
             });
 
         response.body = JSON.stringify({ message: 'Item updated successfully' });

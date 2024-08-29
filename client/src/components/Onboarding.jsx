@@ -197,7 +197,7 @@ function Onboarding({setIsOnboarded, firstName}) {
                     </>
                 :
                     <>
-                        <OnboardingInputField errorMsg={addressErrorMsg} label={`Where are you living off-campus? (If you're a sophomore, where will you be next year?)`}>
+                        <OnboardingInputField errorMsg={addressErrorMsg} label={`Where are you living off-campus? (If you're a sophomore, where will you be next year?) e.g. 123 Main St Apt 4B, Evanston, IL 60208`}>
                             <textarea value={address} onChange={handleAddressChange} className="text-base p-2 font-medium text-primary-gray w-full rounded-md border-2 border-brand-purple" placeholder="123 Main St Apt 4B, Evanston, IL 60208" />
                         </OnboardingInputField>
 

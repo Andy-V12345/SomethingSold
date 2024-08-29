@@ -15,13 +15,18 @@ exports.handler = async (event) => {
     const response = {
         statusCode: 200,
         body: null,
+        headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Methods': '*',
+            'Access-Control-Allow-Origin': '*'
+        }
     };
 
     try {
         // Parse the event body
         const itemData = typeof event.body === 'string' ? JSON.parse(event.body) : event;
 
-        const { name, price, dimensions, condition, image_path, seller_id, buyer_id, availability_date } = itemData;
+        const { name, price, dimensions, condition, address, seller_id, buyer_id, availability_date } = itemData;
 
         // Insert the item into the database
         const item_id = await db('item').insert({
@@ -31,7 +36,8 @@ exports.handler = async (event) => {
             condition,
             seller_id: seller_id || null, // Handle null value
             buyer_id: buyer_id || null,    // Handle null value
-            availability_date
+            availability_date,
+            address
         }, ['id']);
 
         response.body = JSON.stringify({ 

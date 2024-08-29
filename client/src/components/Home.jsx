@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react"
 import { AccountContext } from "./Account"
 import Onboarding from "./Onboarding"
 import Navbar from "./Navbar"
+import MyListings from "./MyListings"
 
 function Home() {
 
@@ -11,6 +12,7 @@ function Home() {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [showProfile, setShowProfile] = useState(false)
+    const [mode, setMode] = useState('HOME')
 
     useEffect(() => {
         if (authState === 'AUTHORIZED') {
@@ -28,11 +30,23 @@ function Home() {
     }, [authState])
 
     if (isOnboarded) {
-        return (
-            <div>
-                <Navbar firstName={firstName} lastName={lastName} showProfile={showProfile} setShowProfile={setShowProfile} />
-            </div>
-        )
+        if (mode === 'HOME') {
+            return (
+                <div>
+                    <Navbar setMode={setMode} firstName={firstName} lastName={lastName} showProfile={showProfile} setShowProfile={setShowProfile} />
+                    
+                </div>
+            )
+        }
+        else if (mode === 'MY_LISTINGS') {
+            return (
+                <div>
+                    <Navbar setMode={setMode} firstName={firstName} lastName={lastName} showProfile={showProfile} setShowProfile={setShowProfile} />
+                    
+                    <MyListings setShowProfile={setShowProfile} />
+                </div>
+            )
+        }
     }
     else {
         return (

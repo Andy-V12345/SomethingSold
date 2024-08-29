@@ -17,6 +17,7 @@ function ListItem() {
     const [depth, setDepth] = useState("")
     const [condition, setCondition] = useState(1)
     const [date, setDate] = useState("")
+    const [address, setAddress] = useState("")
 
     const [state, setState] = useState("DEFAULT")
     const [errorMsg, setErrorMsg] = useState("Something went wrong. Try again.")
@@ -45,13 +46,21 @@ function ListItem() {
         else if (fieldName === "date") {
             setDate(e.target.value)
         }
+        else if (fieldName === "address") {
+            setAddress(e.target.value)
+        }
     }
 
     useEffect(() => {
-        if (name.trim() !== "" && price.trim() !== "" && width.trim() !== "" && height.trim() !== "" && depth.trim() !== "" && date.trim() !== "") {
-            setState("READY")
+        if (state !== "SUCCESS") {
+            if (name.trim() !== "" && price.trim() !== "" && width.trim() !== "" && height.trim() !== "" && depth.trim() !== "" && date.trim() !== "" && address.trim() !== "") {
+                setState("READY")
+            }
+            else {
+                setState("DEFAULT")
+            }
         }
-    }, [name, price, width, height, depth, date])
+    }, [name, price, width, height, depth, date, address])
 
     useEffect(() => {
         getIdToken()
@@ -67,6 +76,10 @@ function ListItem() {
                         setDate(payload["custom:move_out_date"])
                     }
                 }
+
+                if (payload["custom:address"]) {
+                    setAddress(payload["custom:address"])
+                }
             })
             .catch((err) => {
                 console.error(err)
@@ -74,6 +87,8 @@ function ListItem() {
     }, [])
 
     const postListing = () => {
+        const addressRegex = /^\d+\s+[A-Za-z0-9\s,.'-]+(?:\s+(?:Apt|Suite|Unit)\s*\d+)?(?:,\s*[A-Za-z\s]+,\s*[A-Za-z]{2}\s*\d{5})?$/
+
         setState("LOADING")
         if (Number(price) < 0) {
             setState("ERROR")
@@ -82,6 +97,10 @@ function ListItem() {
         else if (Number(width) < 0 || Number(height) < 0 || Number(depth) < 0) {
             setState("ERROR")
             setErrorMsg("Dimensions cannot be negative")
+        }
+        else if (!addressRegex.test(address)) {
+            setState("ERROR")
+            setErrorMsg("Please enter your address in the proper format")
         }
         else {
             let moveOutDate = new Date(date)
@@ -115,7 +134,8 @@ function ListItem() {
                                 condition: condition.toString(),
                                 availability_date: date,
                                 dimensions: dimensions,
-                                seller_id: user_id
+                                seller_id: user_id,
+                                address: address
                             })
                         }
 
@@ -187,6 +207,7 @@ function ListItem() {
                                                                     setWidth("")
                                                                     setHeight("")
                                                                     setDepth("")
+                                                                    setAddress("")
                                                                     setCondition(1)
                                                                     setState('SUCCESS')
                                                                 }
@@ -294,6 +315,12 @@ function ListItem() {
                                 <p className="text-primary-gray">x</p>
                                 <input value={depth} onChange={handleChange} name="depth" type="number" placeholder="0" className="rounded-md px-2 py-1 border-2 border-brand-purple text-base font-medium text-primary-gray w-full appearance-none outline-none" />
                             </div>
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                            <p className="text-base text-primary-gray font-semibold">{`Address (e.g. 123 Main St Apt 4B, Evanston, IL 60208)`}</p>
+
+                            <input name="address" value={address} onChange={handleChange} type="text" placeholder="123 Main St Apt 4B, Evanston, IL 60208" className="text-base px-2 py-1 font-medium text-primary-gray w-full rounded-md border-2 border-brand-purple outline-none" />
                         </div>
 
                         <div className="flex flex-col gap-1">
