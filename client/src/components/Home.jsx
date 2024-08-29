@@ -10,6 +10,7 @@ function Home() {
     const [isOnboarded, setIsOnboarded] = useState(true)
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
+    const [showProfile, setShowProfile] = useState(false)
 
     useEffect(() => {
         if (authState === 'AUTHORIZED') {
@@ -29,7 +30,7 @@ function Home() {
     if (isOnboarded) {
         return (
             <div>
-                <Navbar firstName={firstName} lastName={lastName} />
+                <Navbar firstName={firstName} lastName={lastName} showProfile={showProfile} setShowProfile={setShowProfile} />
             </div>
         )
     }

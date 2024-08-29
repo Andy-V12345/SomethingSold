@@ -1,14 +1,20 @@
 import logoLight from "../assets/light-logo-only.png"
-import { FaRegEnvelope, FaRegHeart, FaChevronDown } from 'react-icons/fa'
+import { FaRegEnvelope, FaRegHeart, FaUser, FaPencilAlt, FaSignOutAlt, FaClipboardList, FaReceipt } from 'react-icons/fa'
 import { MdOutlineShoppingCart } from 'react-icons/md'
 import LetteredAvatar from 'react-lettered-avatar'
 import Searchbar from "./Searchbar"
 import { Link } from "react-router-dom"
+import "./Navbar.css"
+import { useContext } from "react"
+import { AccountContext } from "./Account"
 
-function Navbar({ firstName, lastName }) {
+function Navbar({ firstName, lastName, showProfile, setShowProfile }) {
+
+    const { logout } = useContext(AccountContext)
+
     return (
         <nav className="flex sticky shadow-sm justify-center">
-            <div className="flex py-4 px-8 justify-between items-center gap-20 w-full max-w-[1500px]">
+            <div className="flex py-4 px-8 justify-between items-center gap-10 lg:gap-20 w-full max-w-[1500px]">
                 <img className="h-9" src={logoLight} />
 
                 <Searchbar />
@@ -30,11 +36,36 @@ function Navbar({ firstName, lastName }) {
                         <MdOutlineShoppingCart className="text-[23px] hover:opacity-70" />
                     </button>
 
-                    <LetteredAvatar size={50} name={`${firstName} ${lastName}`} />
-
-                    <button>
-                        <FaChevronDown className="text-[10px] hover:opacity-70" />
+                    <button onClick={() => setShowProfile(!showProfile)}>
+                        <LetteredAvatar size={50} name={`${firstName} ${lastName}`} />
                     </button>
+
+                    <div className="action">
+                        <div className={`menu ${showProfile ? `active` : ``}`}>
+                            <ul className="text-primary-gray font-semibold text-base">
+                                <li>
+                                    <FaUser />
+                                    <a href="#">My profile</a>
+                                </li>
+                                <li>
+                                    <FaClipboardList />
+                                    <a href="#">My listings</a>
+                                </li>
+                                <li>
+                                    <FaReceipt />
+                                    <a href="#">My purchases</a>
+                                </li>
+                                <li>
+                                    <FaPencilAlt />
+                                    <a href="#">Edit profile</a>
+                                </li>
+                                <li onClick={logout}>
+                                    <FaSignOutAlt />
+                                    <a href="#">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>

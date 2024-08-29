@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .action {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+  }
+  
+  .action .menu {
+    position: absolute;
+    top: 85px;
+    right: -18px;
+    padding: 12px 12px;
+    background: white;
+    width: 250px;
+    border-radius: 15px;
+    transition: ease-in-out .2s;
+    visibility: hidden;
+    opacity: 0;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  
+  .action .menu.active {
+    top: 75px;
+    transition: ease-in-out .2s;
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .action .menu ul li {
+    list-style: none;
+    padding: 12px 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-radius: 10px;
+  }
+
+  .action .menu ul li:hover {
+    background-color: #D9D9D9;
+  }
+  
