@@ -5,9 +5,41 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SomethingSold</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <header>
+      <div class="logo">
+        <img src="/src/assets/dark-logo-only.png" alt="SomethingSold Logo" />
+        <span>SomethingSold</span>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/buy">Buy</a></li>
+          <li><a href="/sell">Sell</a></li>
+          <li><a href="/profile">Profile</a></li>
+        </ul>
+        <a href="/login" class="btn-login">Login</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1>Discover, Buy, Sell.</h1>
+        <p>Your campus marketplace for secondhand furniture.</p>
+        <a href="/get-started" class="btn-main">Get Started</a>
+      </section>
+
+      <section class="mission">
+        <h2>Our Mission</h2>
+        <p>
+          At SomethingSold, our goal is to make buying and selling secondhand furniture easy, accessible, and sustainable. We connect students with high-quality, affordable options right on their campus, fostering a community of responsible consumption and hassle-free transactions.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 SomethingSold. All rights reserved.</p>
+    </footer>
   </body>
 </html>
