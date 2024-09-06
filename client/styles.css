@@ -1,21 +1,24 @@
-/* Base styles */
+/* General Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: Arial, sans-serif;
 }
 
+/* Body and Main Styling */
 body {
-    line-height: 1.6;
-    background-color: #545454; /* Unified gray background */
-    color: #e0e0e0; /* Light color for text */
+    background-color: #545454;
+    color: #d6c1ff;
 }
 
-/* Header styles */
+/* Header Styling */
 header {
-    background: #2c2c2e; /* Dark header background */
-    padding: 20px 40px;
+    background-color: #333;
+    padding: 10px 20px;
+}
+
+nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -27,113 +30,106 @@ header {
 }
 
 .logo img {
-    height: 50px;
-    margin-right: 15px;
-    background: none; /* Ensure no background */
+    width: 40px;
+    margin-right: 10px;
 }
 
 .logo span {
-    font-size: 1.8em;
+    color: #d6c1ff;
+    font-size: 24px;
     font-weight: bold;
-    color: #d6c1ff; /* Updated purple color */
 }
 
-nav {
+nav ul {
     display: flex;
-    align-items: center;
-}
-
-.nav-links {
     list-style: none;
-    display: flex;
-    gap: 25px;
 }
 
-.nav-links a {
-    color: #fff;
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #d6c1ff;
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
+    font-size: 18px;
 }
 
-.nav-links a:hover {
-    color: #d6c1ff; /* Purple on hover */
-}
-
-/* Button styles */
-.btn-login,
-.btn-main {
-    padding: 10px 20px;
-    background: #d6c1ff; /* Consistent purple for both buttons */
-    color: #2c2c2e; /* Dark text for contrast */
-    text-decoration: none;
+.login-button {
+    padding: 8px 16px;
+    background-color: #6b4eff;
+    color: white;
+    border: none;
     border-radius: 5px;
-    transition: background 0.3s, transform 0.2s;
-    font-weight: bold;
-    margin-left: 20px;
+    cursor: pointer;
 }
 
-.btn-login:hover,
-.btn-main:hover {
-    background: #b89ae6; /* Slightly darker purple on hover */
-    transform: translateY(-2px);
+.login-button:hover {
+    background-color: #5a3ecc;
 }
 
-/* Main content */
-main {
-    padding: 60px 20px;
+/* Main Intro Section */
+.intro {
     text-align: center;
+    padding: 60px 20px;
+    background-color: #444;
+    border-radius: 10px;
+    margin: 20px;
 }
 
-.hero {
-    background: #2c2c2e; /* Dark background for contrast */
-    color: #fff;
-    padding: 120px 20px;
-    margin: 40px auto;
+.intro h1 {
+    font-size: 48px;
+    color: #ffffff;
+}
+
+.intro p {
+    font-size: 20px;
+    margin: 10px 0 20px;
+    color: #ddd;
+}
+
+.get-started-button {
+    padding: 12px 24px;
+    background-color: #6b4eff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.get-started-button:hover {
+    background-color: #5a3ecc;
+}
+
+/* Image Gallery */
+.image-gallery {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.furniture-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
     border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
 }
 
-.hero h1 {
-    font-size: 3.5em;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+.furniture-image:hover {
+    transform: scale(1.05);
 }
 
-.hero p {
-    font-size: 1.2em;
-    margin-bottom: 30px;
-    color: #d1d1d1;
-}
-
-.mission {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 30px;
-    background: #2c2c2e; /* Dark background for mission section */
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    color: #d1d1d1; /* Light text for readability */
-}
-
-.mission h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #d6c1ff; /* Purple color for the mission title */
-}
-
-.mission p {
-    font-size: 1.1em;
-    line-height: 1.8;
-    color: #d1d1d1;
-}
-
-/* Footer styles */
+/* Footer Styling */
 footer {
     text-align: center;
-    padding: 20px 0;
-    background: #2c2c2e;
-    color: #d1d1d1;
-    font-size: 0.9em;
+    padding: 20px;
+    color: #ddd;
+    background-color: #333;
+    margin-top: 20px;
+    border-radius: 10px;
 }
